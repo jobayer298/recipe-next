@@ -1,0 +1,13 @@
+{
+  "nav": [
+    { "text": "home", "url": "/" },
+    { "text": "add recipe", "url": "/addRecipe" }
+  ],
+  "recipe": [
+    { "id": 1, "image": "image1.jpg", "title": "Product 1", "price": 19.99 },
+    { "id": 2, "image": "image2.jpg", "title": "Product 2", "price": 29.99 },
+    { "id": 3, "image": "image3.jpg", "title": "Product 3", "price": 39.99 },
+    { "id": 4, "image": "image4.jpg", "title": "Product 4", "price": 49.99 },
+    { "id": 5, "image": "image5.jpg", "title": "Product 5", "price": 59.99 }
+  ]
+}
