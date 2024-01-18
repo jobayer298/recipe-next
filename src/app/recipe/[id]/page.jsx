@@ -1,15 +1,12 @@
-import React from 'react';
-import data from "../../../../public/data/data.json";
+const getData = async(params) =>{
+  const response = await fetch(`http://localhost:5000/recipe/${params.id}`)
+  return response.json();
+}
 
-const SingleRecipe = ({params}) => {
-    const singleData = data.recipe.find(
-      (item) => item.id == parseInt(params.id)
-    );
-    return (
-        <div>
-            recipe {singleData.title}
-        </div>
-    );
+const SingleRecipe = async({ params }) => {
+  const data = await getData(params)
+  console.log(data);
+  return <div>{data.title}</div>;
 };
 
 export default SingleRecipe;

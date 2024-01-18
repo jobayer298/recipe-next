@@ -10,7 +10,7 @@ const Navbar = () => {
         <Link href="/" className="h-16 w-16 rounded-full"><Image className="h-full w-full rounded-full" alt="recipe image" src={logo} /></Link>
         <ul className="flex items-center gap-5">
           {data.nav.map((item, index) => (
-            <li key={index} className="font-medium capitalize">
+            <li key={index} className="font-medium capitalize transition-all hover:text-primary">
               <Link href={item.url}>{item.text}</Link>
             </li>
           ))}

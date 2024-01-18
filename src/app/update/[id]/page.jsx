@@ -1,10 +1,16 @@
 "use client";
 import React, { useState } from "react";
-import Title from "../component/title/Title";
-import ingredients from "../../../ingredients.json";
+import data from "../../../../public/data/data.json";
+import ingredients from "../../../../ingredients.json";
 import Multiselect from "multiselect-react-dropdown";
+import Title from "../../../app/component/title/Title";
 
-const AddRecipe = () => {
+const getData = async (params) => {
+  const response = await fetch(`http://localhost:5000/recipe/${params.id}`);
+  return response.json();
+};
+
+const UpdatePage = async ({ params }) => {
   const [selection, setSelection] = useState({
     options: ingredients.map((ingredient) => ingredient.label),
     selectedIngredients: [],
@@ -27,25 +33,12 @@ const AddRecipe = () => {
       instruction,
       ingredients: selection.selectedIngredients,
     };
-    console.log(formData);
-    fetch("http://localhost:5000/recipes", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
   };
+  const data = await getData(params);
+  console.log(data);
   return (
     <div className="container mx-auto">
-      <Title title="add recipe" />
+      <Title title="update recipe" />
       <form
         onSubmit={handleSubmit}
         className="w-1/2 mx-auto shadow-lg p-10 space-y-3"
@@ -58,6 +51,7 @@ const AddRecipe = () => {
             placeholder="title of recipe"
             name="title"
             required
+            defaultValue={data.title}
           />
         </div>
         <div className="space-y-2">
@@ -68,6 +62,7 @@ const AddRecipe = () => {
             placeholder="price"
             name="price"
             required
+            defaultValue={data.price}
           />
         </div>
         <div className="space-y-2">
@@ -76,6 +71,7 @@ const AddRecipe = () => {
             isObject={false}
             options={selection.options}
             onSelect={handleSelect}
+            selectedValues={data.ingredients}
           />
         </div>
         <div className="space-y-2">
@@ -85,13 +81,14 @@ const AddRecipe = () => {
             name="instruction"
             required
             rows="5"
+            defaultValue={data.instruction}
           ></textarea>
         </div>
         <div className="space-y-2">
           <input
             type="submit"
             value="add recipe"
-            className="w-full py-3 bg-primary text-white font-bold rounded-md capitalize cursor-pointer"
+            className="w-full py-3 bg-primary text-white font-bold rounded-md capitalize"
           />
         </div>
       </form>
@@ -99,4 +96,4 @@ const AddRecipe = () => {
   );
 };
 
-export default AddRecipe;
+export default UpdatePage;
