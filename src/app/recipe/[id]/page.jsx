@@ -29,7 +29,7 @@ const SingleRecipe = async ({ params }) => {
           ))}
         </ul>
         <p className="text-[17px] text-gray-600 mb-3">
-          <span className="text-md text-primary">instruction:</span> {data.instruction} tk
+          <span className="text-md text-primary">instruction:</span> {data.instruction}
         </p>
       </div>
     </div>
