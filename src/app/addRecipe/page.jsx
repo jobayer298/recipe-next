@@ -38,6 +38,7 @@ const AddRecipe = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        alert("Recipe added")
       })
       .catch((error) => {
         console.log(error);

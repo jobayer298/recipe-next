@@ -1,21 +1,25 @@
 "use client";
-import React, { useState } from "react";
-import data from "../../../../public/data/data.json";
+import React, { useEffect, useState } from "react";
 import ingredients from "../../../../ingredients.json";
 import Multiselect from "multiselect-react-dropdown";
 import Title from "../../../app/component/title/Title";
 
-const getData = async (params) => {
-  const response = await fetch(`http://localhost:5000/recipe/${params.id}`);
-  return response.json();
-};
+// const getData = async (params) => {
+//   const response = await fetch(`http://localhost:5000/recipe/${params.id}`);
+//   return response.json();
+// };
 
-const UpdatePage = async ({ params }) => {
+const UpdatePage = ({ params }) => {
+  const [data, setData] = useState({});
   const [selection, setSelection] = useState({
     options: ingredients.map((ingredient) => ingredient.label),
     selectedIngredients: [],
   });
-
+  useEffect(() => {
+    fetch(`http://localhost:5000/recipe/${params.id}`)
+      .then((res) => res.json())
+      .then((data) => setData(data));
+  }, []);
   const handleSelect = (selectedList) => {
     setSelection((prevSelection) => ({
       ...prevSelection,
@@ -33,9 +37,24 @@ const UpdatePage = async ({ params }) => {
       instruction,
       ingredients: selection.selectedIngredients,
     };
+    fetch(`http://localhost:5000/recipe/${params.id}`, {
+      method: "put",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.modifiedCount > 0) {
+          alert("Recipe updated");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
-  const data = await getData(params);
-  console.log(data);
   return (
     <div className="container mx-auto">
       <Title title="update recipe" />
@@ -87,8 +106,8 @@ const UpdatePage = async ({ params }) => {
         <div className="space-y-2">
           <input
             type="submit"
-            value="add recipe"
-            className="w-full py-3 bg-primary text-white font-bold rounded-md capitalize"
+            value="add update"
+            className="w-full py-3 cursor-pointer bg-primary text-white font-bold rounded-md capitalize"
           />
         </div>
       </form>
