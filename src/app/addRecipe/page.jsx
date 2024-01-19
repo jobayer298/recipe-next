@@ -27,6 +27,7 @@ const AddRecipe = () => {
       instruction,
       ingredients: selection.selectedIngredients,
     };
+     e.target.reset();
     console.log(formData);
     fetch("https://recipe-server-wine.vercel.app/recipes", {
       method: "POST",
