@@ -28,7 +28,7 @@ const AddRecipe = () => {
       ingredients: selection.selectedIngredients,
     };
     console.log(formData);
-    fetch("http://localhost:5000/recipes", {
+    fetch("https://recipe-server-wine.vercel.app/recipes", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -4,11 +4,6 @@ import ingredients from "../../../../ingredients.json";
 import Multiselect from "multiselect-react-dropdown";
 import Title from "../../../app/component/title/Title";
 
-// const getData = async (params) => {
-//   const response = await fetch(`http://localhost:5000/recipe/${params.id}`);
-//   return response.json();
-// };
-
 const UpdatePage = ({ params }) => {
   const [data, setData] = useState({});
   const [selection, setSelection] = useState({
@@ -16,7 +11,7 @@ const UpdatePage = ({ params }) => {
     selectedIngredients: [],
   });
   useEffect(() => {
-    fetch(`http://localhost:5000/recipe/${params.id}`)
+    fetch(`https://recipe-server-wine.vercel.app/recipe/${params.id}`)
       .then((res) => res.json())
       .then((data) => setData(data));
   }, []);
@@ -35,9 +30,12 @@ const UpdatePage = ({ params }) => {
       price,
       title,
       instruction,
-      ingredients: selection.selectedIngredients,
+      ingredients:
+        selection.selectedIngredients.length > 0
+          ? selection.selectedIngredients
+          : data.ingredients,
     };
-    fetch(`http://localhost:5000/recipe/${params.id}`, {
+    fetch(`https://recipe-server-wine.vercel.app/recipe/${params.id}`, {
       method: "put",
       headers: {
         "Content-Type": "application/json",
@@ -90,7 +88,7 @@ const UpdatePage = ({ params }) => {
             isObject={false}
             options={selection.options}
             onSelect={handleSelect}
-            selectedValues={data.ingredients}
+            selectedValues={data.ingredients || []}
           />
         </div>
         <div className="space-y-2">

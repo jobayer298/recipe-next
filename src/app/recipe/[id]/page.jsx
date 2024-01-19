@@ -1,5 +1,5 @@
 const getData = async(params) =>{
-  const response = await fetch(`http://localhost:5000/recipe/${params.id}`)
+  const response = await fetch(`https://recipe-server-wine.vercel.app/recipe/${params.id}`)
   return response.json();
 }
 

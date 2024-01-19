@@ -5,7 +5,7 @@ export const useRecipeData = () => {
   const [reciPeData, setRecipeData] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/all-recipe")
+    fetch("https://recipe-server-wine.vercel.app/all-recipe")
       .then((response) => {
         return response.json();
       })

@@ -7,12 +7,12 @@ import Title from "../title/Title";
 const MyRecipe = () => {
   const [recipeData, setRecipeData] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:5000/all-recipe")
+    fetch("https://recipe-server-wine.vercel.app/all-recipe")
       .then((res) => res.json())
       .then((data) => setRecipeData(data));
   }, []);
   const handleDelete = (id) => {
-    fetch(`http://localhost:5000/recipe/${id}`, {
+    fetch(`https://recipe-server-wine.vercel.app/recipe/${id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
@@ -34,12 +34,12 @@ const MyRecipe = () => {
 
      if (!title) {
        const allRecipesResponse = await fetch(
-         "http://localhost:5000/all-recipe"
+         "https://recipe-server-wine.vercel.app/all-recipe"
        );
        const allRecipesData = await allRecipesResponse.json();
        setRecipeData(allRecipesData);
      } else {
-       const response = await fetch(`http://localhost:5000/search/${title}`);
+       const response = await fetch(`https://recipe-server-wine.vercel.app/search/${title}`);
        if (response.ok) {
          const result = await response.json();
          if (result) {
