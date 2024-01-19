@@ -1,14 +1,14 @@
+"use client";
+import { useEffect, useState } from "react";
 import Title from "../../component/title/Title";
 
-const getData = async (params) => {
-  const response = await fetch(
-    `https://recipe-server-wine.vercel.app/recipe/${params.id}`
-  );
-  return response.json();
-};
-
-const SingleRecipe = async ({ params }) => {
-  const data = await getData(params);
+const SingleRecipe = ({ params }) => {
+  const [data, setData] = useState({});
+  useEffect(() => {
+    fetch(`https://recipe-server-wine.vercel.app/recipe/${params.id}`)
+      .then((res) => res.json())
+      .then((data) => setData(data));
+  }, []);
   console.log(data);
   return (
     <div className="container mx-auto">
@@ -29,7 +29,8 @@ const SingleRecipe = async ({ params }) => {
           ))}
         </ul>
         <p className="text-[17px] text-gray-600 mb-3">
-          <span className="text-md text-primary">instruction:</span> {data.instruction}
+          <span className="text-md text-primary">instruction:</span>{" "}
+          {data.instruction}
         </p>
       </div>
     </div>
