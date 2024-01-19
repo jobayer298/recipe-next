@@ -79,6 +79,7 @@ const UpdatePage = ({ params }) => {
             placeholder="price"
             name="price"
             required
+            min={1}
             defaultValue={data.price}
           />
         </div>
